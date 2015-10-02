@@ -3,10 +3,7 @@
 var ipc = require('ipc');
 
 var launchButton = document.getElementById('launch-button');
-
-launchButton.addEventListener('click', function() {
-  ipc.send('launch-app-window');
-});
+var launchData = {};
 
 angular.module('inViewerApp', [])
   .factory('DeviceData', function($http) {
@@ -34,4 +31,8 @@ angular.module('inViewerApp', [])
         $scope.deviceList = data.devices;
       }
     });
+    $scope.launchClick = function() {
+      launchData = $scope.selectedProject;
+      ipc.send('launch-app-window', $scope.selectedProject);
+    }
   }]);

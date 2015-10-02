@@ -17,14 +17,14 @@
         <div class="row">
           <div class="twelve columns">
               <label for="global-shortcut-ctrl">Project Url</label>
-              <input class="u-full-width" type="url" id="project-url"/>
+              <input ng-model="selectedProject.url" class="u-full-width" type="url" id="project-url"/>
           </div>
           <div class="twelve columns">
               <label for="project-device">Device Type</label>
-              <select ng-model="selectedProject" ng-options="item.name for item in deviceList" class="u-full-width" id="project-device">
+              <select ng-model="selectedProject.item" ng-options="item.name for item in deviceList" class="u-full-width" id="project-device">
               </select>
           </div>
-          <button id="launch-button" class="button-primary">Launch</button>
+          <button id="launch-button" ng-click="launchClick()" class="button-primary">Launch</button>
         </div>
     </div>
 

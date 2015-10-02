@@ -20,16 +20,17 @@ app.on('ready', function() {
 });
 
 ipc.on('launch-app-window', function(event, arg) {
-  var w = 650;
-  var h = 510;
+  var w = arg.item.width;
+  var h = arg.item.height;
   var mainWindow = new BrowserWindow({
     width: (process.platform == 'win32') ? w + 15 : w,
     height: (process.platform == 'win32') ? h + 15 : h,
     show: false,
+    resizable: false,
     "node-integration": false
   });
 
-  mainWindow.loadUrl('http://www.google.com');
+  mainWindow.loadUrl(arg.url);
   mainWindow.show();
   mainWindow.webContents.on('did-finish-load', function() {
     mainWindow.webContents.insertCSS(".toolbar{display: none;} .powered-by{display: none;} .button-right{display: none;} .button-left{display: none;}")
