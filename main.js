@@ -10,7 +10,6 @@ var launchWindow = null;
 
 app.on('ready', function() {
   if (!configuration.readSettings('cached')) {
-    //https://invis.io/9F4E39AK4
     configuration.saveSettings('cached', { "id": "default", "url": "http://www.google.com" });
   };
 
