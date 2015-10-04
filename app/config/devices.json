@@ -1,5 +1,16 @@
 {
   "devices": {
-    
+    "default": {
+      "id": "default",
+      "name": "Default",
+      "width": 1024,
+      "height": 768
+    },
+    "wide": {
+      "id": "wide",
+      "name": "WideScreen",
+      "width": 1280,
+      "height": 720
+    }
   }
 }

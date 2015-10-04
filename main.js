@@ -9,6 +9,11 @@ var appWindow = null;
 var launchWindow = null;
 
 app.on('ready', function() {
+  if (!configuration.readSettings('cached')) {
+    //https://invis.io/9F4E39AK4
+    configuration.saveSettings('cached', { "id": "default", "url": "http://www.google.com" });
+  };
+
   launchWindow = new BrowserWindow({
     height: 400,
     width: 300,
@@ -16,12 +21,11 @@ app.on('ready', function() {
   });
 
   launchWindow.loadUrl('file://' + __dirname + '/app/launch.html');
-  launchWindow.openDevTools();
 });
 
 ipc.on('launch-app-window', function(event, arg) {
-  var w = arg.item.width;
-  var h = arg.item.height;
+  var w = arg.width;
+  var h = arg.height;
   var mainWindow = new BrowserWindow({
     width: (process.platform == 'win32') ? w + 15 : w,
     height: (process.platform == 'win32') ? h + 15 : h,

@@ -1,9 +1,9 @@
 'use strict';
 
 var ipc = require('ipc');
+var configuration = require('../configuration.js');
 
 var launchButton = document.getElementById('launch-button');
-var launchData = {};
 
 angular.module('inViewerApp', [])
   .factory('DeviceData', function($http) {
@@ -15,8 +15,7 @@ angular.module('inViewerApp', [])
      return factory;
   })
   .controller('DeviceController', ['$scope', 'DeviceData', function($scope, DeviceData) {
-    $scope.selectedProject = null;
-    $scope.deviceList = {"default": {"name": "Default", "width": 800, "height": 600 }};
+    var cachedProject = configuration.readSettings('cached');
     DeviceData.getJsonDeviceList().success(function(data) {
       var count = 0;
       for (var property in data.devices)
@@ -29,10 +28,16 @@ angular.module('inViewerApp', [])
       if (count > 0)
       {
         $scope.deviceList = data.devices;
+        $scope.selectedProject = $scope.deviceList[cachedProject.id];
+        $scope.selectedProject.url = cachedProject.url;
       }
     });
     $scope.launchClick = function() {
-      launchData = $scope.selectedProject;
+      cachedProject.id = $scope.selectedProject.id;
+      cachedProject.url = $scope.selectedProject.url;
+      $scope.selectedProject = $scope.deviceList[cachedProject.id];
+      $scope.selectedProject.url = cachedProject.url;
+      configuration.saveSettings('cached', cachedProject);
       ipc.send('launch-app-window', $scope.selectedProject);
     }
   }]);

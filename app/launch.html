@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>inViewer Settings</title>
+    <title>inViewer Launcher</title>
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,13 +16,13 @@
         <div class="row"></div>
         <div class="row">
           <div class="twelve columns">
-              <label for="global-shortcut-ctrl">Project Url</label>
-              <input ng-model="selectedProject.url" class="u-full-width" type="url" id="project-url"/>
+              <label for="project-device">Device Type</label>
+              <select ng-model="selectedProject.id" ng-options="item.id as item.name for item in deviceList" class="u-full-width" id="project-device">
+              </select>
           </div>
           <div class="twelve columns">
-              <label for="project-device">Device Type</label>
-              <select ng-model="selectedProject.item" ng-options="item.name for item in deviceList" class="u-full-width" id="project-device">
-              </select>
+              <label for="global-shortcut-ctrl">Project Url</label>
+              <input ng-model="selectedProject.url" class="u-full-width" type="url" id="project-url"/>
           </div>
           <button id="launch-button" ng-click="launchClick()" class="button-primary">Launch</button>
         </div>
