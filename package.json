@@ -4,15 +4,22 @@
   "main": "./main.js",
   "scripts": {
     "start": "electron .",
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ../dist",
+    "clean:osx": "rm -rf ../dist/osx",
+    "clean:win": "rm -rf ../dist/win",
+
     "build": "npm run clean && npm run build:win",
-    "build:win": "npm run clean && electron-packager ./ 'inViewer' --platform=win32 --arch=ia32 --out=dist/win --version=0.33.3",
-    "pack": "npm run build:win && electron-builder \"dist/win/inViewer-win32-ia32\" --platform=win --out=\"dist/win\" --config=config.json"
+    "build:win": "npm run clean:win && electron-packager ./ 'inViewer' --platform=win32 --arch=ia32 --out=../dist/win --version=0.33.3 --ignore=\"node_modules/(electron-packager|electron-prebuilt|electron-builder)\"",
+    "build:osx": "npm run clean:osx && electron-packager ./ 'inViewer' --platform=darwin --arch=x64 --out=../dist/osx --version=0.33.3 --ignore=\"node_modules/(electron-packager|electron-prebuilt|electron-builder)\"",
+
+    "pack": "npm run pack:osx && npm run pack:win",
+    "pack:win": "npm run build:win && electron-builder \"../dist/win/inViewer-win32-ia32\" --platform=win --out=\"../dist/win\" --config=config.json",
+    "pack:osx": "npm run build:osx"
   },
   "devDependencies": {
     "electron-packager": "^5.0.1",
     "electron-prebuilt": "^0.30.3",
-    "electron-builder": "^1.0.0"
+    "electron-builder": "^2.0.0"
   },
   "dependencies": {
     "nconf": "^0.7.2"
