@@ -22,6 +22,15 @@ app.on('ready', function() {
   launchWindow.loadUrl('file://' + __dirname + '/app/launch.html');
 });
 
+// Quit when all windows are closed.
+app.on('window-all-closed', function() {
+  // On OS X it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  if (process.platform != 'darwin') {
+    app.quit();
+  }
+});
+
 ipc.on('launch-app-window', function(event, arg) {
   var w = arg.width;
   var h = arg.height;
